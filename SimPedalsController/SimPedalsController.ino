@@ -3,15 +3,7 @@
 #include "IADC.h"
 #include "AdcDualADS1015.h"
 #include "AdcInternal.h"
-
-//#define SERIAL_DEBUG_ENABLED      // Enable this to turn on Serial printing
-#ifdef SERIAL_DEBUG_ENABLED
-  #define DebugPrint(message) Serial.print(message);
-  #define DebugPrintln(message) Serial.print(message);
-#else
-  #define DebugPrint(...)
-  #define DebugPrintln(...) 
-#endif
+#include "Debug.h"
 
 Joystick_ Joystick(JOYSTICK_DEFAULT_REPORT_ID, JOYSTICK_TYPE_MULTI_AXIS, 0, 0, true, true, true, false, false, false, false, false, false, false, true);
 SignalFilter signalFilters[3];
@@ -45,7 +37,7 @@ IADC *adc = AdcFactory(Internal);
 /*
  * Program one time configuration and setup
  */
-void setup() 
+void setup()
 {
 #ifdef SERIAL_DEBUG_ENABLED    
     Serial.begin(115200);
@@ -53,6 +45,8 @@ void setup()
 #endif
 
     //IADC *adc = new AdcDualADS1015();
+
+    adc->Setup();
 
     Joystick.setXAxisRange(0, 4096);
     Joystick.setYAxisRange(0, 4096);

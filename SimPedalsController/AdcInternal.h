@@ -9,6 +9,7 @@ class AdcInternal : public IADC
     public:
         AdcInternal();
 
+        void Setup();
         int GetThrottle();
         int GetBrake();
         int GetClutch();
