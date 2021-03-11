@@ -1,3 +1,4 @@
+#include <Arduino.h>
 #include <Joystick.h>
 #include "Filter.h"
 #include "IADC.h"
@@ -39,11 +40,11 @@ IADC *adc = AdcFactory(DualAds1015);
  */
 void setup()
 {
-#ifdef SERIAL_DEBUG_ENABLED    
+//#ifdef SERIAL_DEBUG_ENABLED    
     Serial.begin(115200);
     while (!Serial);
     DebugPrint("Debug enabled")
-#endif
+//#endif
 
     //IADC *adc = new AdcDualADS1015();
 

@@ -1,5 +1,5 @@
+#include <Arduino.h>
 #include "AdcDualADS1015.h"
-#include "Arduino.h"
 #include "Debug.h"
 
 AdcDualADS1015::AdcDualADS1015() :
