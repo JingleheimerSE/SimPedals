@@ -15,17 +15,17 @@ void AdcInternal::Setup()
 #endif
 }
 
-int AdcInternal::GetThrottle()
+unsigned int AdcInternal::GetThrottle()
 {
     return analogRead(THROTTLE_PIN);
 }
 
-int AdcInternal::GetBrake()
+unsigned int AdcInternal::GetBrake()
 {
     return analogRead(BRAKE_PIN);
 }
 
-int AdcInternal::GetClutch()
+unsigned int AdcInternal::GetClutch()
 {
     return analogRead(CLUTCH_PIN);;
 }

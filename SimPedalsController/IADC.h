@@ -6,9 +6,9 @@ class IADC {
         virtual ~IADC() {}
     
         virtual void Setup() {}
-        virtual int GetThrottle() = 0;
-        virtual int GetBrake() = 0;
-        virtual int GetClutch() = 0;
+        virtual unsigned int GetThrottle() = 0;
+        virtual unsigned int GetBrake() = 0;
+        virtual unsigned int GetClutch() = 0;
 };
 
 #endif

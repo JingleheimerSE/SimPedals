@@ -1,51 +1,42 @@
 #include "AdcDualADS1015.h"
 #include "Arduino.h"
+#include "Debug.h"
 
 AdcDualADS1015::AdcDualADS1015() :
-    throttleCount(0),
-    brakeCount(0),
-    clutchCount(0)
+    throttleClutchADS(0x48),
+    brakeADS(0x49),
+    throttleReading(0),
+    brakeReading(0),
+    clutchReading(0)
 {
 }
 
-int AdcDualADS1015::GetThrottle()
+void AdcDualADS1015::Setup()
 {
-    if(throttleCount > 4096)
-    {
-        throttleCount = 0;
-    }
-    else
-    {
-        throttleCount++;
-    }
-    
-    return throttleCount;
+    throttleClutchADS.setGain(GAIN_TWO);
+    throttleClutchADS.begin();
+
+    brakeADS.setGain(GAIN_FOUR);
+    brakeADS.begin();
 }
 
-int AdcDualADS1015::GetBrake()
-{
-    if(brakeCount > 4096)
-    {
-        brakeCount = 0;
-    }
-    else
-    {
-        brakeCount++;
-    }
+unsigned int AdcDualADS1015::GetThrottle()
+{   
+    throttleReading = throttleClutchADS.readADC_Differential_0_1() + FIVE_VOLT_SIGNED_OFFSET;
 
-    return brakeCount;
+    return static_cast<unsigned int>(throttleReading);
 }
 
-int AdcDualADS1015::GetClutch()
+unsigned int AdcDualADS1015::GetBrake()
 {
-    if(clutchCount > 4096)
-    {
-        clutchCount = 0;
-    }
-    else
-    {
-        clutchCount++;
-    }
+    brakeReading = brakeADS.readADC_Differential_0_1() + FIVE_VOLT_SIGNED_OFFSET;
 
-    return clutchCount;
+    return static_cast<unsigned int>(brakeReading);
+}
+
+unsigned int AdcDualADS1015::GetClutch()
+{
+    clutchReading = throttleClutchADS.readADC_Differential_2_3() + FIVE_VOLT_SIGNED_OFFSET;
+
+    return static_cast<unsigned int>(clutchReading);
 }

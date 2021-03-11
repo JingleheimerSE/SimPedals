@@ -10,14 +10,14 @@ class AdcInternal : public IADC
         AdcInternal();
 
         void Setup();
-        int GetThrottle();
-        int GetBrake();
-        int GetClutch();
+        unsigned int  GetThrottle();
+        unsigned int  GetBrake();
+        unsigned int  GetClutch();
 
     private:
-        int throttleCount;
-        int brakeCount;
-        int clutchCount;
+        unsigned int  throttleCount;
+        unsigned int  brakeCount;
+        unsigned int  clutchCount;
 
         const int THROTTLE_PIN = A1;
         const int BRAKE_PIN = A2;

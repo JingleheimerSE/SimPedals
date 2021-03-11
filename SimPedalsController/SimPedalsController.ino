@@ -32,7 +32,7 @@ IADC* AdcFactory(AdcType adcType)
     }
     
 }
-IADC *adc = AdcFactory(Internal);
+IADC *adc = AdcFactory(DualAds1015);
 
 /*
  * Program one time configuration and setup
@@ -42,6 +42,7 @@ void setup()
 #ifdef SERIAL_DEBUG_ENABLED    
     Serial.begin(115200);
     while (!Serial);
+    DebugPrint("Debug enabled")
 #endif
 
     //IADC *adc = new AdcDualADS1015();
@@ -80,11 +81,10 @@ void loop()
         Joystick.sendState();
 
         // Print some debug if its enabled
-        DebugPrint("T: ");
         DebugPrint(throttleValue);
-        DebugPrint(" B: ");
+        DebugPrint("\t");
         DebugPrint(brakeValue);
-        DebugPrint(" C: ");
+        DebugPrint("\t");
         DebugPrintln(clutchValue);
     }
     else
