@@ -2,6 +2,7 @@
 #include <Joystick.h>
 #include "Filter.h"
 #include "IADC.h"
+#include "AdcTest.h"
 #include "AdcDualADS1015.h"
 #include "AdcInternal.h"
 #include "Debug.h"
@@ -12,6 +13,7 @@ unsigned int filterSampleSize = 25;
 
 enum AdcType
 {
+    Test,
     Internal,
     DualAds1015
 };
@@ -27,26 +29,27 @@ IADC* AdcFactory(AdcType adcType)
             return new AdcDualADS1015();
             break;
         case Internal:
-        default:
-            DebugPrint("Error: Unknown ADC type, defaulting to internal");
             return new AdcInternal();
+            break;
+        default:
+            DebugPrint("Error: Unknown ADC type, defaulting to Test ADC");
+        case Test:
+            return new AdcTest();
+            break;
     }
-    
 }
-IADC *adc = AdcFactory(DualAds1015);
+IADC *adc = AdcFactory(AdcType::DualAds1015);
 
 /*
  * Program one time configuration and setup
  */
 void setup()
 {
-//#ifdef SERIAL_DEBUG_ENABLED    
+#ifdef SERIAL_DEBUG_ENABLED    
     Serial.begin(115200);
     while (!Serial);
     DebugPrint("Debug enabled")
-//#endif
-
-    //IADC *adc = new AdcDualADS1015();
+#endif
 
     adc->Setup();
 
